@@ -1,0 +1,7 @@
+urllib
+streamlit
+pandas
+altair
+urllib
+matplotlib
+plotly
