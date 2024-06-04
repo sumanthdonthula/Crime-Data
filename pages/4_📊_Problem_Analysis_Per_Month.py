@@ -8,8 +8,9 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="% of the Selected Problem per month", page_icon="📊")
 
-st.markdown("% of the Selected Problem per month")
+st.markdown("**% of the Selected Problem per month**")
 st.sidebar.header("% of the Selected Problem per month")
+st.write("This Plot represents the % share of the problem per month over months")
 
 @st.cache_data
 def get_data():
