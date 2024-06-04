@@ -1,6 +1,4 @@
-urllib
 pandas
 altair
-urllib
 matplotlib
 plotly
