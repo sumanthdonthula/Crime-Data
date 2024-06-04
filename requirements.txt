@@ -4,3 +4,4 @@ matplotlib
 plotly
 folium
 streamlit_folium
+openai
