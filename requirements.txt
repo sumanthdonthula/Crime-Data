@@ -1,5 +1,4 @@
 urllib
-streamlit
 pandas
 altair
 urllib
