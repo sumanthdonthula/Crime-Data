@@ -18,7 +18,7 @@ def get_data():
     df = crime_data
     df['Response_Date'] = pd.to_datetime(df['Response_Date'])
     df['Year']=df['Response_Date'].dt.year
-
+    df=df[df['Agency_Type'] == 'Law Enforcement']
     return df
 
 def get_monthly_percent_data(data_frame):
@@ -46,12 +46,11 @@ def get_monthly_percent_data(data_frame):
     # Calculate percentage of each type by total count for each date
     problem_count_df['percentage'] = problem_count_df.apply(lambda x: (x['Count'] / grouped[x['Month']]) * 100, axis=1)
     problem_count_df['Month_Count'] = problem_count_df.apply(lambda x: grouped[x['Month']], axis=1)
-    
+    problem_count_df['percentage'] = problem_count_df['percentage'].apply(lambda x: round(x, 2))
     return problem_count_df[problem_count_df['Problem']==Problem]
     
 def plot_monthly_percentage_data(final_df):
-    final_df=get_monthly_percent_data(data_frame)
-    line_fig = px.line(final_df, x='Month', y='percentage',text='Count')
+    line_fig = px.line(final_df, x='Month', y='percentage',text='percentage')
     line_fig.update_traces(textposition="bottom left")
     
     return line_fig
@@ -61,8 +60,6 @@ try:
     
     grouped_df = data_frame.groupby(['Problem']).size().reset_index(name='Count')
         
-    top_10_counts=grouped_df.nlargest(10, 'Count')
-    
     month_to_num = {1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 6: 'June', 7: 'July', 8: 'August', 9: 'September', 10: 'October', 11: 'November', 12: 'December'}
 
     unique_month_names = list(month_to_num.keys())
@@ -72,7 +69,7 @@ try:
     )
     
     Problem = st.selectbox(
-        "Choose Problem", list(top_10_counts['Problem'])
+        "Choose Problem", list(grouped_df['Problem'])
     )
     
     if not Year:
