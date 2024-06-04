@@ -3,3 +3,4 @@ altair
 matplotlib
 plotly
 folium
+streamlit_folium
